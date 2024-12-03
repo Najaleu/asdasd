@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Статичний сайт для Arduino</title>
+    <title>Дані для Arduino</title>
 </head>
 <body>
     <h1>Введіть дані для Arduino</h1>
@@ -20,13 +20,15 @@
     </form>
 
     <h2>API дані:</h2>
-    <pre id="jsonOutput">{}<pre>
+    <div id="apiData">
+        { "temperature": 0, "humidity": 0 }
+    </div>
 
     <script>
         // Об'єкт для зберігання даних
         const apiData = {
-            temperature: null,
-            humidity: null
+            temperature: 0,
+            humidity: 0
         };
 
         // Функція для оновлення даних
@@ -37,18 +39,10 @@
             apiData.temperature = document.getElementById('temperature').value;
             apiData.humidity = document.getElementById('humidity').value;
 
-            // Оновлюємо вміст API на сторінці
-            document.getElementById('jsonOutput').innerText = JSON.stringify(apiData, null, 2);
-
-            // Оновлюємо JSON-файл
-            fetch('data.json', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(apiData)
-            }).then(() => alert('Дані успішно оновлено!'))
-              .catch(err => alert('Помилка: ' + err));
+            // Оновлюємо дані на сторінці
+            const apiDiv = document.getElementById('apiData');
+            apiDiv.textContent = JSON.stringify(apiData);
+            alert('Дані успішно оновлено!');
         });
     </script>
 </body>
