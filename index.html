@@ -40,7 +40,15 @@
             // Оновлюємо вміст API на сторінці
             document.getElementById('jsonOutput').innerText = JSON.stringify(apiData, null, 2);
 
-            alert('Дані успішно оновлено!');
+            // Оновлюємо JSON-файл
+            fetch('data.json', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(apiData)
+            }).then(() => alert('Дані успішно оновлено!'))
+              .catch(err => alert('Помилка: ' + err));
         });
     </script>
 </body>
